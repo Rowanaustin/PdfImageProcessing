@@ -15,6 +15,10 @@ internal class Program
         //var images = ImageCollection.GetImages();
         var images = ImageCollection.GetImagesFromPdf(fileName);
 
+        if (!Directory.Exists(Consts.PDF_FOLDER))
+            Directory.CreateDirectory(Consts.PDF_FOLDER);
+        if (!Directory.Exists(Consts.IMAGE_FOLDER))
+            Directory.CreateDirectory(Consts.IMAGE_FOLDER);
         Directory.CreateDirectory(Consts.IMAGE_OUTPUT_FOLDER);
         utils.SaveModifiedPageImages(images);
 
