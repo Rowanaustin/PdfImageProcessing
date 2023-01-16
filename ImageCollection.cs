@@ -10,6 +10,10 @@ namespace PdfImageProcessing
 {
     internal static class ImageCollection
     {
+        public static bool FileExists(string fileName)
+        {
+            return File.Exists(Consts.PDF_FOLDER + fileName);
+        }
         public static Dictionary<int, List<System.Drawing.Image>> GetImagesFromPdf(string fileName)
         {
             Console.WriteLine("Importing PDF images...");
