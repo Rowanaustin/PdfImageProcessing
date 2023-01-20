@@ -17,6 +17,18 @@ namespace PdfImageProcessing
         {
             string[] filePaths = Directory.GetDirectories(Consts.IMAGE_OUTPUT_FOLDER);
 
+            // ----------------------------------------
+
+            var totalImages = filePaths.Length;
+            var estTotalSeconds = 24.56 - (0.06730496 * totalImages) + (0.01337264 * (totalImages * totalImages));
+            var estDuration = new TimeSpan(0, 0, (int)estTotalSeconds);
+
+            var estMinutes = (int)estDuration.TotalMinutes;
+            var estSeconds = estMinutes == 0 ? (int)estDuration.TotalSeconds : (int)estDuration.TotalSeconds % (int)estDuration.TotalMinutes;
+            Console.WriteLine("Estimated time to complete is " + estMinutes + "m" + estSeconds + "s");
+
+            // ----------------------------
+
             Console.WriteLine("Comparing " + filePaths.Length + " PDF images...");
 
             List<ComparisonResult> results = new();
@@ -87,22 +99,21 @@ namespace PdfImageProcessing
                 }
                 Console.Write("\n");
 
-                if (i==0)
-                {
-                    var firstDuration = DateTime.Now - firstStartTime;
-                    var timePerImage = firstDuration / others.Count;
-                    var imagesLeft = others.Count - 1;
-                    var totalComparisons = (imagesLeft * (imagesLeft + 1)) / 2;
-                    var estDuration = (timePerImage * totalComparisons);
+                //if (i==0)
+                //{
+                //    //var firstDuration = DateTime.Now - firstStartTime;
+                //    //var timePerImage = firstDuration / others.Count;
+                //    //var imagesLeft = others.Count - 1;
+                //    //var totalComparisons = (imagesLeft * (imagesLeft + 1)) / 2;
+                //    //var estDuration = (timePerImage * totalComparisons);
 
+                //    //HACK FOR NOW!!!!!!!
+                //    //estDuration = estDuration.Multiply(1.3).Add(new TimeSpan(0,0,imagesLeft/2));
 
-                    //HACK FOR NOW!!!!!!!
-                    estDuration = estDuration.Multiply(1.7);
-
-                    var estMinutes = (int)estDuration.TotalMinutes;
-                    var estSeconds = estMinutes == 0 ? (int)estDuration.TotalSeconds : (int)estDuration.TotalSeconds % (int)estDuration.TotalMinutes;
-                    Console.WriteLine("Estimated time to complete is " + estMinutes + "m" + estSeconds + "s");
-                }
+                //    var estMinutes = (int)estDuration.TotalMinutes;
+                //    var estSeconds = estMinutes == 0 ? (int)estDuration.TotalSeconds : (int)estDuration.TotalSeconds % (int)estDuration.TotalMinutes;
+                //    Console.WriteLine("Estimated time to complete is " + estMinutes + "m" + estSeconds + "s");
+                //}
             }
 
             return results.OrderDescending().ToList();
