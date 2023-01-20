@@ -22,20 +22,26 @@ namespace PdfImageProcessing
             factory = new ImageFactory();
         }
 
-        public void SaveModifiedPageImages(Dictionary<int,List<System.Drawing.Image>> images)
+        public void SaveModifiedPageImages(Dictionary<string,List<List<System.Drawing.Image>>> images)
         {
             Dictionary<string, System.Drawing.Image> imagesForProc = new();
-            Console.WriteLine("Saving " + images.Count + " images");
-            foreach(int page in images.Keys)
+            Console.WriteLine("Saving " + images.Count + " pdfs of images");
+
+            foreach (string file in images.Keys)
             {
                 var i = 0;
-                foreach(var image in images[page])
+                foreach (List<System.Drawing.Image> page in images[file])
                 {
-                    var name = "P" + page + "image" + i;
-                    imagesForProc.Add(name, image);
+                    var j = 0;
+                    foreach (var image in page)
+                    {
+                        var name = file + "P" + i + "image" + j;
+                        imagesForProc.Add(name, image);
 
-                    AddSections(imagesForProc, name);
+                        AddSections(imagesForProc, name);
 
+                        j++;
+                    }
                     i++;
                 }
             }

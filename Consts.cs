@@ -10,6 +10,7 @@ namespace PdfImageProcessing
     internal class Consts
     {
         public static string PDF_FOLDER = "./pdf/";
+        public static string PDF_OUTPUT_FOLDER = "./pdfOut/";
         public static string IMAGE_FOLDER = "./image/";
         public static string IMAGE_OUTPUT_FOLDER = "./imageOut/";
         public static string IMAGE_ROT_OUTPUT_FOLDER = "/rotations/";

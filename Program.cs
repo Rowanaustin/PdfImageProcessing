@@ -12,6 +12,8 @@ internal class Program
 
         if (!Directory.Exists(Consts.PDF_FOLDER))
             Directory.CreateDirectory(Consts.PDF_FOLDER);
+        if (!Directory.Exists(Consts.PDF_OUTPUT_FOLDER))
+            Directory.CreateDirectory(Consts.PDF_OUTPUT_FOLDER);
         if (!Directory.Exists(Consts.IMAGE_FOLDER))
             Directory.CreateDirectory(Consts.IMAGE_FOLDER);
 
@@ -23,8 +25,13 @@ internal class Program
         {
             var collectTimeStamp = DateTime.Now;
 
+            ImageCollection.SplitPdfs();
+
             //var images = ImageCollection.GetImages();
-            var images = ImageCollection.GetImagesFromPdf(fileName);
+
+            //var images = ImageCollection.GetImagesFromPdf(fileName);
+
+            var images = ImageCollection.GetImages();
 
             Directory.CreateDirectory(Consts.IMAGE_OUTPUT_FOLDER);
             utils.SaveModifiedPageImages(images);
@@ -35,7 +42,7 @@ internal class Program
 
             var results = ImageComparison.CompareImages();
 
-            utils.CleanUpImages();
+            //utils.CleanUpImages();
 
             var compareDuration = DateTime.Now - compareTimeStamp;
 

@@ -29,7 +29,7 @@ namespace PdfImageProcessing
                 //var imageRotZero = Directory.GetFiles(imageLoc, "*.png", SearchOption.TopDirectoryOnly)[0];
 
                 var imageName = imageRotZero.Replace(filePaths[i] + Consts.IMAGE_ROT_OUTPUT_FOLDER, "");
-                imageName.Replace(".png", "");
+                imageName.Replace(".png", "").Replace(".pdf","");
                 var image = AForge.Imaging.Image.FromFile(imageRotZero);
                 image = ConvertToBitmap(image);
                 List<string> others = new(filePaths.Skip(i + 1).ToArray());
@@ -45,7 +45,7 @@ namespace PdfImageProcessing
 
                 foreach (string other in others)
                 {
-                    var otherName = other.Replace(Consts.IMAGE_OUTPUT_FOLDER, "");
+                    var otherName = other.Replace(Consts.IMAGE_OUTPUT_FOLDER, "").Replace(".png","").Replace(".bmp","");
                     string[] rotations = Directory.GetFiles(other + Consts.IMAGE_ROT_OUTPUT_FOLDER, "*.png", SearchOption.TopDirectoryOnly);
                     //Console.WriteLine("Searching for " + other);
                     foreach (string rotation in rotations)
