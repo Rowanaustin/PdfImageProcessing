@@ -36,12 +36,11 @@ namespace PdfImageProcessing
 
                 if (others.Count > 0)
                 {
-                    var message = "Using " + imageName;
-                    var dashCount = 30 - message.Length;
-                    for (int j = 0; j < dashCount; j++)
-                        message += "-";
+                    var message = "Comparing " + imageName + "\n";
                     Console.Write(message);
                 }
+
+                var firstStartTime = DateTime.Now;
 
                 foreach (string other in others)
                 {
@@ -87,6 +86,23 @@ namespace PdfImageProcessing
                     Console.Write("|");
                 }
                 Console.Write("\n");
+
+                if (i==0)
+                {
+                    var firstDuration = DateTime.Now - firstStartTime;
+                    var timePerImage = firstDuration / others.Count;
+                    var imagesLeft = others.Count - 1;
+                    var totalComparisons = (imagesLeft * (imagesLeft + 1)) / 2;
+                    var estDuration = (timePerImage * totalComparisons);
+
+
+                    //HACK FOR NOW!!!!!!!
+                    estDuration = estDuration.Multiply(1.7);
+
+                    var estMinutes = (int)estDuration.TotalMinutes;
+                    var estSeconds = estMinutes == 0 ? (int)estDuration.TotalSeconds : (int)estDuration.TotalSeconds % (int)estDuration.TotalMinutes;
+                    Console.WriteLine("Estimated time to complete is " + estMinutes + "m" + estSeconds + "s");
+                }
             }
 
             return results.OrderDescending().ToList();

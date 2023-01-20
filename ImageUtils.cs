@@ -66,6 +66,11 @@ namespace PdfImageProcessing
             SaveRotatedVersions(imagesForProc);
         }
 
+        public void CleanUpPdfs ()
+        {
+            Directory.Delete(Consts.PDF_OUTPUT_FOLDER, true);
+        }
+
         public void CleanUpImages()
         {
             Directory.Delete(Consts.IMAGE_OUTPUT_FOLDER, true);
